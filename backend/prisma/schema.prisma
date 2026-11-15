@@ -6,3 +6,87 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+  role     Int
+
+  store  Store?
+  cart   Cart?
+  orders Order[]
+}
+
+model Store {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+
+  owner_id Int  @unique
+  owner    User @relation(fields: [owner_id], references: [id])
+
+  products Product[]
+  order    Order[]
+}
+
+model Product {
+  id             Int     @id @default(autoincrement())
+  name           String
+  description    String?
+  price          Decimal @db.Decimal(10, 2)
+  stock_quantity Int
+
+  store_id Int
+  store    Store @relation(fields: [store_id], references: [id])
+
+  cart_items Cart_Item?
+  order_item Order_Item?
+}
+
+model Cart {
+  id Int @id @default(autoincrement())
+
+  owner_id Int  @unique
+  owner    User @relation(fields: [owner_id], references: [id])
+
+  cart_items Cart_Item[]
+}
+
+model Cart_Item {
+  id Int @id @default(autoincrement())
+
+  cart_id Int
+  cart    Cart @relation(fields: [cart_id], references: [id])
+
+  product_id Int     @unique
+  product    Product @relation(fields: [product_id], references: [id])
+}
+
+model Order {
+  id           Int     @id @default(autoincrement())
+  status       Int
+  total_amount Decimal @db.Decimal(10, 2)
+
+  owner_id Int
+  owner    User @relation(fields: [owner_id], references: [id])
+
+  store_id Int
+  store    Store @relation(fields: [store_id], references: [id])
+
+  order_items Order_Item[]
+}
+
+model Order_Item {
+  id           Int     @id @default(autoincrement())
+  product_name String
+  unit_price   Decimal @db.Decimal(10, 2)
+  quantity     Int
+
+  order_id Int
+  order    Order @relation(fields: [order_id], references: [id])
+
+  product_id Int     @unique
+  product    Product @relation(fields: [product_id], references: [id])
+}
