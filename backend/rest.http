@@ -1,0 +1,19 @@
+### Test login
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "mmad@gmail.com",
+    "password": "zzz"
+}
+
+### Test register
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "name": "mmad",
+    "email": "mmad@gmail.com",
+    "password": "zzz",
+    "role": 1
+}

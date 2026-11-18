@@ -20,3 +20,15 @@ const user = await db.user.delete({
 })
 console.log(user)
 */
+/*
+const user = await db.user.findFirst({
+    where: {
+        id: 1
+    }
+})
+console.log(user)
+*/
+
+let s = '      hello    '
+s = s.trim()
+console.log(s)
