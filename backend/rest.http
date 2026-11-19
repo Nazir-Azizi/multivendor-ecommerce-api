@@ -3,8 +3,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "mmad@gmail.com",
-    "password": "zzz"
+    "email": "ali@gmail.com",
+    "password": "123321"
 }
 
 ### Test register
@@ -27,3 +27,39 @@ GET http://localhost:3000/api/product?storeId=3
 
 ### Test product api (get product by id)
 GET http://localhost:3000/api/product/10
+
+### Test product api (create a new product)
+POST http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE3OTUwOTEzMTQsImV4cCI6MTc5NTE3NzcxNH0.fABP6XOTnuejYtfEtX92goLAcsPaGCbxxHlBYzZsATY",
+    "name": "tea",
+    "description": "Good tea",
+    "price": 10,
+    "stock_quantity": 1,
+    "store_id": 3
+}
+
+
+### Test product api (update product)
+PATCH  http://localhost:3000/api/product/110
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE3OTUwOTEzMTQsImV4cCI6MTc5NTE3NzcxNH0.fABP6XOTnuejYtfEtX92goLAcsPaGCbxxHlBYzZsATY",
+    "name": "tea with milk",
+    "description": "Good tea with milk",
+    "price": 40,
+    "stock_quantity": 1,
+    "store_id": 3
+}
+
+
+### Test product api (delete product)
+DELETE   http://localhost:3000/api/product/11
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE3OTUwOTEzMTQsImV4cCI6MTc5NTE3NzcxNH0.fABP6XOTnuejYtfEtX92goLAcsPaGCbxxHlBYzZsATY"
+}
