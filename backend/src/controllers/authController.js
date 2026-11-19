@@ -33,7 +33,7 @@ export async function loginControl(req, res) {
 
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'Server failed' })
     }
 }
 
@@ -75,6 +75,6 @@ export async function registerControl(req, res) {
         return res.status(201).json({ message: 'Profile created', token })
     } catch (error) {
         console.log(error)
-        res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'Server failed' })
     }
 }

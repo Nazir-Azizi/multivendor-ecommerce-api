@@ -17,3 +17,13 @@ Content-Type: application/json
     "password": "zzz",
     "role": 1
 }
+
+### Test product api (get all products)
+GET http://localhost:3000/api/product
+
+### Test product api (get product by store_id)
+GET http://localhost:3000/api/product?storeId=3
+
+
+### Test product api (get product by id)
+GET http://localhost:3000/api/product/10
