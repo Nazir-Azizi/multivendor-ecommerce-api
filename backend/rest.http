@@ -57,9 +57,25 @@ Content-Type: application/json
 
 
 ### Test product api (delete product)
-DELETE   http://localhost:3000/api/product/11
+DELETE  http://localhost:3000/api/product/11
 Content-Type: application/json
 
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFsaUBnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE3OTUwOTEzMTQsImV4cCI6MTc5NTE3NzcxNH0.fABP6XOTnuejYtfEtX92goLAcsPaGCbxxHlBYzZsATY"
+}
+
+### Test store api (get all stores)
+GET http://localhost:3000/api/store
+
+### Test store api (get store by id)
+GET http://localhost:3000/api/store/3
+
+### Test store api (create store)
+POST http://localhost:3000/api/store
+Content-Type: application/json
+
+{
+    "name": "Pen Shop",
+    "description": "Good place",
+    "owner_id": 11
 }
