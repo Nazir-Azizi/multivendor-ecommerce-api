@@ -3,8 +3,8 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "ali@gmail.com",
-    "password": "123321"
+    "email": "ham@gmail.com",
+    "password": "123"
 }
 
 ### Test register
@@ -12,9 +12,9 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "name": "mmad",
-    "email": "mmad@gmail.com",
-    "password": "zzz",
+    "name": "Hamid",
+    "email": "ham@gmail.com",
+    "password": "123",
     "role": 1
 }
 
@@ -75,7 +75,27 @@ POST http://localhost:3000/api/store
 Content-Type: application/json
 
 {
-    "name": "Pen Shop",
+    "name": "School sup Shop",
     "description": "Good place",
-    "owner_id": 11
+    "owner_id": 13,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhbUBnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE3OTUyNDAyOTEsImV4cCI6MTc5NTMyNjY5MX0.aC5OrmuHijUAbd2jaVYOp1b4trN73m1PmtJIewnulZw"
+}
+
+
+### Test store api (update store)
+PATCH  http://localhost:3000/api/store/2
+Content-Type: application/json
+
+{
+    "name": "KKKKKKKKKKKKKKKK",
+    "description": "Good place",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhbUBnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE3OTUyNDAyOTEsImV4cCI6MTc5NTMyNjY5MX0.aC5OrmuHijUAbd2jaVYOp1b4trN73m1PmtJIewnulZw"
+}
+
+### Test store api (delete store)
+DELETE   http://localhost:3000/api/store/2
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhbUBnbWFpbC5jb20iLCJyb2xlIjowLCJpYXQiOjE3OTUyNDAyOTEsImV4cCI6MTc5NTMyNjY5MX0.aC5OrmuHijUAbd2jaVYOp1b4trN73m1PmtJIewnulZw"
 }

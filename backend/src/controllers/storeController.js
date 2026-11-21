@@ -65,3 +65,66 @@ export async function createStore(req, res) {
         return res.status(500).json({ message: 'Server failed' })
     }
 }
+
+export async function updateStore(req, res) {
+    const storeId = Number(req.params.id)
+    try {
+        const store = await db.store.findFirst({
+            where: {
+                id: storeId
+            }
+        })
+        if (!store) 
+            return res.status(400).json({ message: 'No such store' })
+
+        let { name, description} = req.body
+
+        if (!name)
+            return res.status(400).json({ message: 'Complete all the data for store' })
+
+        await db.store.update({
+            where: {
+                id: storeId
+            }, 
+            data: {
+                name: name.trim(),
+                description: description
+            }
+        })
+        res.status(200).json({ message: 'Store updated' })
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ message: 'Server failed' })
+    }
+}
+
+export async function deleteStore(req, res) {
+    const storeId = Number(req.params.id)
+    try {
+        const store = await db.store.findFirst({
+            where: {
+                id: storeId
+            }
+        })
+
+        if (!store)
+            return res.status(400).json({ message: 'No such store' })
+        await db.store.delete({
+            where: {
+                id: storeId
+            }
+        })
+        await db.user.update({
+            where: {
+                id: store.owner_id
+            }, 
+            data: {
+                role: 1
+            }
+        })
+        res.status(200).json({ message: 'Store removed' })
+    } catch(error) {
+        console.log(error)
+        return res.status(500).json({ message: 'Server failed' })
+    }
+}
