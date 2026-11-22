@@ -7,7 +7,7 @@ export async function loginControl(req, res) {
     const { email, password } = req.body
 
     if (!email || !password) {
-         return res.status(400).json({ message: 'Complete all the data fields' })
+        return res.status(400).json({ message: 'Missing required fields' })
     }
     
     try {
@@ -20,20 +20,20 @@ export async function loginControl(req, res) {
         })
 
         if (!user) {
-            return res.status(401).json({ message: 'Invalid email or password' })
+            return res.status(404).json({ message: `User with email ${email} was not found` })
         }
         const isPasswordValid = await bcrypt.compare(password, user.password)
         if (!isPasswordValid){
             return res.status(401).json({ message: 'Invalid email or password' })
         }
         
-        const token = jwt.sign({ email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "24h" })
+        const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "24h" })
         
-        return res.status(201).json({ message: 'Login success', token })
+        return res.status(200).json({ message: 'Login successful', token })
 
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
 
@@ -42,10 +42,10 @@ export async function registerControl(req, res) {
     const { name, email, password, role } = req.body
 
     if (!name || !email || !password || role == undefined) {
-        return res.status(400).json({ message: 'Complete all the data fields' })
+        return res.status(400).json({ message: 'Missing required fields' })
     }
     if (role != 1 && role != 0) {
-        return res.status(400).json({ message: 'No such role exists' })
+        return res.status(400).json({ message: 'Invalid role provided' })
     }
     const user = await db.user.findFirst({
         where: {
@@ -53,7 +53,7 @@ export async function registerControl(req, res) {
         }
     })
     if (user) {
-        return res.status(400).json({ message: 'Email already in use' })
+        return res.status(409).json({ message: 'Username is already taken' })
     }
     try {
         const HASH_SALT = Number(process.env.HASH_SALT)
@@ -70,11 +70,11 @@ export async function registerControl(req, res) {
             }
         })
 
-        const token = jwt.sign({ email: user.email, role: user.role }, JWT_SECRET, { expiresIn: "24h" })
+        const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: "24h" })
         
-        return res.status(201).json({ message: 'Profile created', token })
+        return res.status(200).json({ message: 'SignIn successful', token })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }

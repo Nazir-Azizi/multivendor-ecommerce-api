@@ -4,7 +4,7 @@ export async function authenticateToken(req, res, next) {
     const { token } = req.body
 
     if (!token) 
-        return res.status(403).json({ message: 'No token provided' })
+        return res.status(400).json({ message: 'Missing required token' })
     try {
         const JWT_SECRET = process.env.JWT_SECRET
 

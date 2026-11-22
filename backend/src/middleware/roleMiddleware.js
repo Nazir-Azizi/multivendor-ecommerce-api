@@ -1,13 +1,38 @@
+import db from '../lib/db.js'
+
 export async function isSeller(req, res, next) {
-    const { role } = req.body.userInfo
-    if (role != 0)
-        return res.status(403).json({ message: 'Not allowed' })
+    const userId = Number(req.body.userInfo.userId)
+    const user = getUser(userId)
+    if (!user)
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
+    if (user.role != 0)
+        return res.status(401).json({ message: 'Unauthorized' })
+    req.body.userInfo = user
+    next()
+    
+}
+
+export async function isUser(req, res, next) {
+    const userId = Number(req.body.userInfo.userId)
+    const user = getUser(userId)
+    if (!user)
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
+    if (user.role != 1)
+        return res.status(401).json({ message: 'Unauthorized' })
+    req.body.userInfo = user
     next()
 }
 
-export async function isBuyer(req, res, next) {
-    const { role } = req.body.userInfo
-    if (role != 1)
-        return res.status(403).json({ message: 'Not allowed' })
-    next()
+async function getUser(userId) {
+    try {
+        const user = await db.user.findFirst({
+            where: {
+                id: userId
+            }
+        })
+        return user
+    } catch (error) {
+        console.log(error)       
+    }
+    return null
 }

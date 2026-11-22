@@ -10,16 +10,16 @@ export async function getProducts(req, res) {
             }
         })
         if (!products)
-            return res.status(404).json({ message: 'No products found' })
+            return res.status(404).json({ message: 'The server can not find the requested resource' })
         return res.status(200).json(products)
     } else {
         try {
             const products = await db.product.findMany()
             if (!products)
-                return res.status(404).json({ message: 'No products found' })
+                return res.status(404).json({ message: 'The server can not find the requested resource' })
             return res.status(200).json(products)
         } catch (error) {
-            return res.status(500).json({ message: 'Server failed' })
+            return res.status(500).json({ message: 'The server encountered an unexpected condition that prevented it from fulfilling the request' })
         }
     }
 }
@@ -33,11 +33,11 @@ export async function getProductById(req, res) {
             }
         })
         if (!product)
-            return res.status(404).json({ message: 'Product not found' })
+            return res.status(404).json({ message: 'The server can not find the requested resource' })
         return res.status(200).json(product)
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'The server encountered an unexpected condition that prevented it from fulfilling the request' })
     }
 }
 
