@@ -20,8 +20,7 @@ export async function loginControl(req, res) {
         })
 
         if (!user) {
-            return res.status(404).json({ message: `User with email ${email} was not found` })
-        }
+            return res.status(401).json({ message: 'Invalid email or password' })        }
         const isPasswordValid = await bcrypt.compare(password, user.password)
         if (!isPasswordValid){
             return res.status(401).json({ message: 'Invalid email or password' })
@@ -39,13 +38,10 @@ export async function loginControl(req, res) {
 
 export async function registerControl(req, res) {
 
-    const { name, email, password, role } = req.body
+    const { name, email, password } = req.body
 
-    if (!name || !email || !password || role == undefined) {
+    if (!name || !email || !password) {
         return res.status(400).json({ message: 'Missing required fields' })
-    }
-    if (role != 1 && role != 0) {
-        return res.status(400).json({ message: 'Invalid role provided' })
     }
     const user = await db.user.findFirst({
         where: {
@@ -65,8 +61,7 @@ export async function registerControl(req, res) {
             data: {
                 name: name.trim(),
                 email: email.trim(),
-                password: hashedPassword,
-                role
+                password: hashedPassword
             }
         })
 

@@ -1,0 +1,64 @@
+### LOGIN / REGISTER TEST
+
+### TEST REGISTER
+### REGISTER FOR THE FIRST TIME
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "name": "nazir",
+    "email": "nazir@gmail.com",
+    "password": "123"
+}
+### REGISTER WITH THE SAME EMAIL
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "name": "nazir123",
+    "email": "nazir@gmail.com",
+    "password": "123"
+}
+### REGISTER WITH MESSING FIELDS
+POST http://localhost:3000/auth/register
+Content-Type: application/json
+
+{
+    "name": "",
+    "email": "nazir@gmail.com",
+    "password": "123"
+}
+
+### TEST LOGIN
+### SUCCESSFUL LOGIN
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "nazir@gmail.com",
+    "password": "123"
+}
+### LOGIN WITH MESSING FIELDS
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "nazir@gmail.com",
+    "password": ""
+}
+### LOGIN WITH WITH EMAIL
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "nazir123@gmail.com",
+    "password": "123"
+}
+### LOGIN WITH WITH PASSWORD
+POST http://localhost:3000/auth/login
+Content-Type: application/json
+
+{
+    "email": "nazir@gmail.com",
+    "password": "12"
+}
