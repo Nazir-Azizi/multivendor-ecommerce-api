@@ -5,7 +5,7 @@ export async function getStores(req, res) {
         const stores = await db.store.findMany()
         return res.status(200).json(stores)
     } catch (error) {
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
 
@@ -17,70 +17,76 @@ export async function getStoreById(req, res) {
                 id: storeId
             }
         })
-        if (!store)
-            return res.status(404).json({ message: 'Store not found' })
         return res.status(200).json(store)
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
 
 export async function createStore(req, res) {
-    const { name, description, owner_id } = req.body
-
-    if (!name || !owner_id)
-         return res.status(400).json({ message: 'Complete all the data for store' })
+    const { name, description } = req.body
+    if (!name)
+        return res.status(400).json({ message: 'Missing required fields' })
+    const userInfo = req.body.userInfo
     try {
-        const user = db.user.findFirst({
-            where: {
-                id: owner_id
-            }
-        })
-        if (!user)
-             return res.status(400).json({ message: 'Invalid owner id' })
         await db.user.update({
             where: {
-                id: owner_id
+                id: userInfo.id
             }, 
             data: {
-                role: 0
+                role: 1
             }
         })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
     try {
         await db.store.create({
             data: {
                 name: name.trim(),
-                description: description,
-                owner_id: owner_id
+                description: description ? description.trim() : description,
+                owner_id: userInfo.id
             }
         })
-        return res.status(201).json({ message: 'Store created' })
+        return res.status(201).json({ message: 'Created' })
     } catch (error) {
+        try {
+            await db.user.update({
+                where: {
+                    id: userInfo.id
+                }, 
+                data: {
+                    role: 0
+                }
+            })
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
+        }
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
 
 export async function updateStore(req, res) {
     const storeId = Number(req.params.id)
+    const userInfo = req.body.userInfo
     try {
         const store = await db.store.findFirst({
             where: {
-                id: storeId
+                id: storeId,
+                owner_id: userInfo.id
             }
         })
         if (!store) 
-            return res.status(400).json({ message: 'No such store' })
+            return res.status(404).json({ message: 'The server can not find the requested resource' })
 
         let { name, description} = req.body
 
         if (!name)
-            return res.status(400).json({ message: 'Complete all the data for store' })
+            return res.status(400).json({ message: 'Missing required fields' })
 
         await db.store.update({
             where: {
@@ -88,27 +94,29 @@ export async function updateStore(req, res) {
             }, 
             data: {
                 name: name.trim(),
-                description: description
+                description: description ? description.trim() : description
             }
         })
-        res.status(200).json({ message: 'Store updated' })
+        res.status(200).json({ message: 'Updated' })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
 
 export async function deleteStore(req, res) {
     const storeId = Number(req.params.id)
+    const userInfo = req.body.userInfo 
     try {
         const store = await db.store.findFirst({
             where: {
-                id: storeId
+                id: storeId,
+                owner_id: userInfo.id
             }
         })
 
         if (!store)
-            return res.status(400).json({ message: 'No such store' })
+            return res.status(400).json({ message: 'The server can not find the requested resource' })
         await db.store.delete({
             where: {
                 id: storeId
@@ -116,15 +124,15 @@ export async function deleteStore(req, res) {
         })
         await db.user.update({
             where: {
-                id: store.owner_id
+                id: userInfo.id
             }, 
             data: {
-                role: 1
+                role: 0
             }
         })
-        res.status(200).json({ message: 'Store removed' })
+        res.status(200).json({ message: 'DELETED' })
     } catch(error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
