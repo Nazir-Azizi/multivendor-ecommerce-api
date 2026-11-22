@@ -1,0 +1,127 @@
+### PRODUCT TEST
+
+### GET PRODUCT
+### GET ALL PRODUCTS
+GET http://localhost:3000/api/product
+### GET PRODUCT BY STORE
+GET http://localhost:3000/api/product?storeId=10
+### GET PRODUCT BY ID
+GET http://localhost:3000/api/product/100
+
+### CREATE PRODUCT
+### CREATE PRODUCT WITHOUT TOKEN
+POST http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+    "name": "Pen",
+    "description": "Blue pen",
+    "price": 5,
+    "stock_quantity": 120
+}
+### CREATE PRODUCT WITH TOKEN BUT USER
+POST http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+    "name": "Pen",
+    "description": "Blue pen",
+    "price": 5,
+    "stock_quantity": 120,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpYXQiOjE3OTUzMjMwOTcsImV4cCI6MTc5NTQwOTQ5N30.-XEg8BXlgoXRrBkOtzMekSpzi5ZxMyvWn6EfugHjX6w"
+}
+### CREATE PRODUCT WITH SELLER TOKEN 
+POST http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+    "name": "Pen",
+    "description": "Blue pen",
+    "price": 5,
+    "stock_quantity": 120,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E"
+}
+### CREATE PRODUCT WITH SELLER TOKEN BUT MISSING FIELD
+POST http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+    "name": "",
+    "description": "Blue pen",
+    "price": 5,
+    "stock_quantity": 120,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E"
+}
+### CREATE PRODUCT WITH SELLER TOKEN BUT Invalid price
+POST http://localhost:3000/api/product
+Content-Type: application/json
+
+{
+    "name": "Pen",
+    "description": "Blue pen",
+    "price": -5,
+    "stock_quantity": 120,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E"
+}
+
+### UPDATE PRODUCT
+### UNAUTHORIZED UPDATE
+PATCH http://localhost:3000/api/product/12
+Content-Type: application/json
+
+{
+    "name": "Pen",
+    "description": "Blue pen from other shop",
+    "price": 5,
+    "stock_quantity": 120,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpYXQiOjE3OTUzMjM4NDcsImV4cCI6MTc5NTQxMDI0N30.cmewq5Q3oTr030D47uEUBjrcdU7XVx-UYv6lI-v4SO8"
+}
+### AUTHORIZED UPDATE
+PATCH http://localhost:3000/api/product/12
+Content-Type: application/json
+
+{
+    "name": "Pen",
+    "description": "Blue pen updated",
+    "price": 5,
+    "stock_quantity": 120,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E"
+}
+### AUTHORIZED UPDATE BUT MISSING FIELD
+PATCH http://localhost:3000/api/product/12
+Content-Type: application/json
+
+{
+    "name": "",
+    "description": "Blue pen updated",
+    "price": 5,
+    "stock_quantity": 120,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E"
+}
+### AUTHORIZED UPDATE BUT INVALID PRICE
+PATCH http://localhost:3000/api/product/12
+Content-Type: application/json
+
+{
+    "name": "Pen",
+    "description": "Blue pen updated",
+    "price": -5,
+    "stock_quantity": 120,
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E"
+}
+
+### DELETE PRODUCT
+### UNAUTHORIZED UPDATE
+DELETE http://localhost:3000/api/product/12
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpYXQiOjE3OTUzMjM4NDcsImV4cCI6MTc5NTQxMDI0N30.cmewq5Q3oTr030D47uEUBjrcdU7XVx-UYv6lI-v4SO8"
+}
+### AUTHORIZED UPDATE
+DELETE  http://localhost:3000/api/product/12
+Content-Type: application/json
+
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E"
+}
