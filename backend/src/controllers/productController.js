@@ -19,7 +19,7 @@ export async function getProducts(req, res) {
                 return res.status(404).json({ message: 'The server can not find the requested resource' })
             return res.status(200).json(products)
         } catch (error) {
-            return res.status(500).json({ message: 'The server encountered an unexpected condition that prevented it from fulfilling the request' })
+            return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
         }
     }
 }
@@ -37,52 +37,71 @@ export async function getProductById(req, res) {
         return res.status(200).json(product)
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: 'The server encountered an unexpected condition that prevented it from fulfilling the request' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
 
 export async function createProduct(req, res) {
-    let { name, description, price, stock_quantity, store_id } = req.body
-    price = Number(price)
-    store_id = Number(store_id)
-
-    if (!name || !price || !stock_quantity || !store_id)
-        return res.status(400).json({ message: 'Complete all the data for product' })
+    let { name, description, price, stock_quantity } = req.body
+    const userInfo = req.body.userInfo
+    
+    if (!name || !price || !stock_quantity)
+        return res.status(400).json({ message: 'Missing required fields' })
     if (price < 0)
-        return res.status(400).json({ message: 'Price can not be negative' })
-
+        return res.status(400).json({ message: `Invalid value for price ${price}` })
+    
     try {
+        price = Number(price)
+        const store = await db.store.findFirst({
+            where: {
+                owner_id: userInfo.id
+            }
+        })
         const product = await db.product.create({
             data: {
                 name: name.trim(),
-                description: description.trim(),
+                description: description ? description.trim() : description,
                 price: price,
                 stock_quantity: stock_quantity,
-                store_id: store_id
+                store_id: store.id
             }
         })
-        return res.status(201).json({ message: 'Product created' })
+        return res.status(201).json({ message: 'Created' })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
 
 export async function updateProduct(req, res) {
     const productId = Number(req.params.id)
+    const userInfo = req.body.userInfo
+
+    const store = await db.store.findFirst({
+        where: {
+            owner_id: userInfo.id
+        }
+    })
+
     try {
         const product = await db.product.findFirst({
             where: {
-                id: productId
+                id: productId,
+                store_id: store.id
             }
         })
 
         if (!product)
-            return res.status(400).json({ message: 'No such product' })
+            return res.status(404).json({ message: 'The server can not find the requested resource' })
 
-        let { name, description, price, stock_quantity, store_id } = req.body
+        let { name, description, price, stock_quantity } = req.body
+        
+        if (!name || !price || !stock_quantity)
+            return res.status(400).json({ message: 'Missing required fields' })
+        if (price < 0)
+            return res.status(400).json({ message: `Invalid value for price ${price}` })
+        
         price = Number(price)
-        store_id = Number(store_id)
 
         await db.product.update({
             where: {
@@ -90,38 +109,47 @@ export async function updateProduct(req, res) {
             },
             data: {
                 name: name.trim(),
-                description: description.trim(),
+                description: description ? description.trim() : description,
                 price: price,
                 stock_quantity: stock_quantity,
-                store_id: store_id
+                store_id: store.id
             }
         })
-        res.status(200).json({ message: 'Product updated' })
+        res.status(200).json({ message: 'Updated' })
     } catch (error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
 
 export async function deleteProduct(req, res) {
     const productId = Number(req.params.id)
+    const userInfo = req.body.userInfo
+    
+    const store = await db.store.findFirst({
+        where: {
+            owner_id: userInfo.id
+        }
+    })
+
     try {
         const product = await db.product.findFirst({
             where: {
-                id: productId
+                id: productId,
+                store_id: store.id
             }
         })
 
         if (!product)
-            return res.status(400).json({ message: 'No such product' })
+            return res.status(400).json({ message: 'The server can not find the requested resource' })
         await db.product.delete({
             where: {
                 id: productId
             }
         })
-        res.status(200).json({ message: 'Product removed' })
+        res.status(200).json({ message: 'Deleted' })
     } catch(error) {
         console.log(error)
-        return res.status(500).json({ message: 'Server failed' })
+        return res.status(500).json({ message: 'An unexpected error occurred. Please try again later' })
     }
 }
