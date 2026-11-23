@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken'
 
 export async function authenticateToken(req, res, next) {
-    const { token } = req.body
+    const authHeader = req.headers.authorization
+    const token = authHeader && authHeader.split(' ')[1]
 
     if (!token) 
         return res.status(400).json({ message: 'Missing required token' })

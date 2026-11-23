@@ -17,66 +17,59 @@ Content-Type: application/json
 ### UNAUTHORIZED CREATE
 POST http://localhost:3000/api/store
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
 
 {
-    "name": "Azizi Shop",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpYXQiOjE3OTUzMjY2MzYsImV4cCI6MTc5NTQxMzAzNn0.fz5Z9tTrNpw_1aUc5SeuPVOw8PYjozrgCvvZvRPoc3Q"
+    "name": "Azizi Shop"
 }
 ### AUTHORIZED CREATE BUT MISSING FIELDS
 POST http://localhost:3000/api/store
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
 
 {
-    "name": "",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE3OTUzMjY3MDcsImV4cCI6MTc5NTQxMzEwN30.suXsJ0riuHC6e3oFiXKEsCR6ovTSvJGTkFhh7eezySk"
+    "name": ""
 }
 ### AUTHORIZED CREATE
 POST http://localhost:3000/api/store
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
 
 {
-    "name": "Azizi Shop",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE3OTUzMjY3MDcsImV4cCI6MTc5NTQxMzEwN30.suXsJ0riuHC6e3oFiXKEsCR6ovTSvJGTkFhh7eezySk"
+    "name": "Azizi Shop"
 }
 
 ### UPDATE STORE
 ### UNAUTHORIZED UPDATE
 PATCH http://localhost:3000/api/store/14
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
 
 {
-    "name": "Azizi Shop updated",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE3OTUzMjY3MDcsImV4cCI6MTc5NTQxMzEwN30.suXsJ0riuHC6e3oFiXKEsCR6ovTSvJGTkFhh7eezySk"
+    "name": "Azizi Shop updated"
 }
 ### AUTHORIZED UPDATE BUT MISSING FIELD
 PATCH http://localhost:3000/api/store/15
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
 
 {
-    "name": "",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE3OTUzMjY3MDcsImV4cCI6MTc5NTQxMzEwN30.suXsJ0riuHC6e3oFiXKEsCR6ovTSvJGTkFhh7eezySk"
+    "name": ""
 }
 ### AUTHORIZED UPDATE
 PATCH http://localhost:3000/api/store/15
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
 
 {
-    "name": "Azizi Shop updated",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE3OTUzMjY3MDcsImV4cCI6MTc5NTQxMzEwN30.suXsJ0riuHC6e3oFiXKEsCR6ovTSvJGTkFhh7eezySk"
+    "name": "Azizi Shop updated"
 }
 
 ### DELETE STORE
 ### UNAUTHORIZED DELETE
 DELETE http://localhost:3000/api/store/14
-Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
 
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE3OTUzMjY3MDcsImV4cCI6MTc5NTQxMzEwN30.suXsJ0riuHC6e3oFiXKEsCR6ovTSvJGTkFhh7eezySk"
-}
 ### AUTHORIZED DELETE
 DELETE http://localhost:3000/api/store/16
-Content-Type: application/json
-
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE3LCJpYXQiOjE3OTUzMjY3MDcsImV4cCI6MTc5NTQxMzEwN30.suXsJ0riuHC6e3oFiXKEsCR6ovTSvJGTkFhh7eezySk"
-}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
