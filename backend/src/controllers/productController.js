@@ -37,7 +37,7 @@ export async function getProductById(req, res) {
 
 export async function createProduct(req, res) {
     let { name, description, price, stock_quantity } = req.body
-    const userInfo = req.body.userInfo
+    const userId = req.userId
     
     if (!name || !price || !stock_quantity)
         return res.status(400).json({ message: 'Missing required fields' })
@@ -48,7 +48,7 @@ export async function createProduct(req, res) {
         price = Number(price)
         const store = await db.store.findFirst({
             where: {
-                owner_id: userInfo.id
+                owner_id: userId
             }
         })
         const product = await db.product.create({
@@ -69,11 +69,11 @@ export async function createProduct(req, res) {
 
 export async function updateProduct(req, res) {
     const productId = Number(req.params.id)
-    const userInfo = req.body.userInfo
+    const userId = req.userId
 
     const store = await db.store.findFirst({
         where: {
-            owner_id: userInfo.id
+            owner_id: userId
         }
     })
 
@@ -118,11 +118,11 @@ export async function updateProduct(req, res) {
 
 export async function deleteProduct(req, res) {
     const productId = Number(req.params.id)
-    const userInfo = req.body.userInfo
+    const userId = req.userId
     
     const store = await db.store.findFirst({
         where: {
-            owner_id: userInfo.id
+            owner_id: userId
         }
     })
 

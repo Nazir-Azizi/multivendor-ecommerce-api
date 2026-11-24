@@ -28,11 +28,11 @@ export async function createStore(req, res) {
     const { name, description } = req.body
     if (!name)
         return res.status(400).json({ message: 'Missing required fields' })
-    const userInfo = req.body.userInfo
+    const userId = req.userId
     try {
         await db.user.update({
             where: {
-                id: userInfo.id
+                id: userId
             }, 
             data: {
                 role: 1
@@ -47,7 +47,7 @@ export async function createStore(req, res) {
             data: {
                 name: name.trim(),
                 description: description ? description.trim() : description,
-                owner_id: userInfo.id
+                owner_id: userId
             }
         })
         return res.status(201).json({ message: 'Created' })
@@ -55,7 +55,7 @@ export async function createStore(req, res) {
         try {
             await db.user.update({
                 where: {
-                    id: userInfo.id
+                    id: userId
                 }, 
                 data: {
                     role: 0
@@ -72,12 +72,12 @@ export async function createStore(req, res) {
 
 export async function updateStore(req, res) {
     const storeId = Number(req.params.id)
-    const userInfo = req.body.userInfo
+    const userId = req.body.userId
     try {
         const store = await db.store.findFirst({
             where: {
                 id: storeId,
-                owner_id: userInfo.id
+                owner_id: userId
             }
         })
         if (!store) 
@@ -106,12 +106,12 @@ export async function updateStore(req, res) {
 
 export async function deleteStore(req, res) {
     const storeId = Number(req.params.id)
-    const userInfo = req.body.userInfo 
+    const userId = req.userId 
     try {
         const store = await db.store.findFirst({
             where: {
                 id: storeId,
-                owner_id: userInfo.id
+                owner_id: userId
             }
         })
 
@@ -124,7 +124,7 @@ export async function deleteStore(req, res) {
         })
         await db.user.update({
             where: {
-                id: userInfo.id
+                id: userId
             }, 
             data: {
                 role: 0

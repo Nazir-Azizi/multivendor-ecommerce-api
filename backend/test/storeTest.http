@@ -4,7 +4,7 @@
 ### GET ALL STORES
 GET http://localhost:3000/api/store
 ### GET STORE BY ID
-GET http://localhost:3000/api/store/
+GET http://localhost:3000/api/store/14
 
 ### CREATE STORE
 ### CREATE WITHOUT TOKEN
@@ -33,10 +33,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpY
 ### AUTHORIZED CREATE
 POST http://localhost:3000/api/store
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE4LCJpYXQiOjE3OTU0OTA1ODgsImV4cCI6MTc5NTU3Njk4OH0.pB3rGw7uLQJxKrrSVQBPHoJNwEc8Ztrb68E5RjcUy6c
 
 {
-    "name": "Azizi Shop"
+    "name": "Hamid Shop"
 }
 
 ### UPDATE STORE
@@ -57,12 +57,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpY
     "name": ""
 }
 ### AUTHORIZED UPDATE
-PATCH http://localhost:3000/api/store/15
+PATCH http://localhost:3000/api/store/17
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE4LCJpYXQiOjE3OTU0OTA1ODgsImV4cCI6MTc5NTU3Njk4OH0.pB3rGw7uLQJxKrrSVQBPHoJNwEc8Ztrb68E5RjcUy6c
 
 {
-    "name": "Azizi Shop updated"
+    "name": "Hamid burger Shop"
 }
 
 ### DELETE STORE
@@ -71,5 +71,5 @@ DELETE http://localhost:3000/api/store/14
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
 
 ### AUTHORIZED DELETE
-DELETE http://localhost:3000/api/store/16
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
+DELETE http://localhost:3000/api/store/17
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE4LCJpYXQiOjE3OTU0OTA1ODgsImV4cCI6MTc5NTU3Njk4OH0.pB3rGw7uLQJxKrrSVQBPHoJNwEc8Ztrb68E5RjcUy6c

@@ -4,9 +4,9 @@
 ### GET ALL PRODUCTS
 GET http://localhost:3000/api/product
 ### GET PRODUCT BY STORE
-GET http://localhost:3000/api/product?storeId=10
+GET http://localhost:3000/api/product?storeId=13
 ### GET PRODUCT BY ID
-GET http://localhost:3000/api/product/100
+GET http://localhost:3000/api/product/15
 
 ### CREATE PRODUCT
 ### CREATE PRODUCT WITHOUT TOKEN
@@ -33,10 +33,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpY
 ### CREATE PRODUCT WITH SELLER TOKEN 
 POST http://localhost:3000/api/product
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTU0OTA4MDYsImV4cCI6MTc5NTU3NzIwNn0.0KytqoZHjg3saRad4-gyvSLD3UWmUurL7NC0MyLUYME
 
 {
-    "name": "Pen",
+    "name": "Pencil 24",
     "description": "Blue pen",
     "price": 5,
     "stock_quantity": 120
@@ -77,13 +77,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE1LCJpY
     "stock_quantity": 120
 }
 ### AUTHORIZED UPDATE
-PATCH http://localhost:3000/api/product/12
+PATCH http://localhost:3000/api/product/18
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTU0OTA4MDYsImV4cCI6MTc5NTU3NzIwNn0.0KytqoZHjg3saRad4-gyvSLD3UWmUurL7NC0MyLUYME
 
 {
-    "name": "Pen",
-    "description": "Blue pen updated",
+    "name": "Laptop",
+    "description": "good",
     "price": 5,
     "stock_quantity": 120
 }
@@ -116,5 +116,5 @@ DELETE http://localhost:3000/api/product/12
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E
 
 ### AUTHORIZED UPDATE
-DELETE  http://localhost:3000/api/product/12
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTUzMjMyOTEsImV4cCI6MTc5NTQwOTY5MX0.jEPd1_5Ib1tf_N2yQRQncD0pfn4Tjf-v2m3vrPxyz_E}
+DELETE http://localhost:3000/api/product/18
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjE2LCJpYXQiOjE3OTU0OTA4MDYsImV4cCI6MTc5NTU3NzIwNn0.0KytqoZHjg3saRad4-gyvSLD3UWmUurL7NC0MyLUYME

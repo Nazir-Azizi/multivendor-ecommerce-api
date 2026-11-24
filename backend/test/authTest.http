@@ -6,8 +6,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "name": "ali",
-    "email": "ali@gmail.com",
+    "name": "hamid",
+    "email": "hamid@gmail.com",
     "password": "123"
 }
 ### REGISTER WITH THE SAME EMAIL
@@ -35,7 +35,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "nazir@gmail.com",
+    "email": "mahdi@gmail.com",
     "password": "123"
 }
 ### LOGIN WITH MESSING FIELDS
