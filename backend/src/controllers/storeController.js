@@ -72,7 +72,7 @@ export async function createStore(req, res) {
 
 export async function updateStore(req, res) {
     const storeId = Number(req.params.id)
-    const userId = req.body.userId
+    const userId = req.userId
     try {
         const store = await db.store.findFirst({
             where: {
